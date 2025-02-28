@@ -1,26 +1,13 @@
 import { pokemonsAvailable } from "@/utils";
 
-interface PokemonType {
-    type: {
-        name: string;
-    }
-}
-
-interface PokemonAbility {
-    ability: {
-        name: string;
-    }
-}
-
-interface PokemonData {
+export interface PokemonData {
     id: number;
     name: string;
     baseExp: number;
     sprite: string;
-    types: PokemonType[];
-    abilities: PokemonAbility[];
+    types: string[];
+    abilities: string[];
 }
-
 
 export async function GET() {
     const randomId = Math.floor(Math.random() * pokemonsAvailable) + 1;
@@ -33,12 +20,12 @@ export async function GET() {
             name: `${data.name[0].toUpperCase()}${data.name.slice(1)}`,
             baseExp: data["base_experience"],
             sprite: data.sprites["front_default"],
-            types: [...data.types],
-            abilities: [...data.abilities]
-        }
+            types: data.types.map((type: any) => type.type.name),
+            abilities: data.abilities.map((ability: any) => ability.ability.name),
+        };
 
         return Response.json(pokemon);
     } catch {
-        return Response.json(`sonny ${randomId}`);
+        return Response.json({ error: `Failed to fetch Pokémon with id ${randomId}` }, { status: 500 });
     }
 }
