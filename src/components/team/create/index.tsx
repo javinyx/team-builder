@@ -10,7 +10,7 @@ export function TeamCreate() {
 
 	const addPokemon = async () => {
 		if (pokemons.length >= MAX_TEAM_SIZE) {
-			return alert("You can't have more than 6 Pokémon in your team!");
+			return alert(`You can't have more than ${MAX_TEAM_SIZE} Pokémon in your team!`);
 		}
 
 		const response = await fetch("/api/pokemon/random");
