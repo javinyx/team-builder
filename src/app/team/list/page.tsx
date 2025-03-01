@@ -1,4 +1,5 @@
 'use client';
+import Link from "next/link";
 import { useEffect, useState } from 'react';
 
 export default function TeamList() {
@@ -15,7 +16,9 @@ export default function TeamList() {
       <h1>Pokémon Teams</h1>
       {teams.map((team) => (
         <div key={team.id}>
-          <h2>{team.name}</h2>
+          <h2>
+            <Link href={`/team/${team.id}/edit`}>{team.name}</Link>
+          </h2>
           <div>
             {team.pokemons.map((tp: any) => (
               <img key={tp.pokemon.id} src={tp.pokemon.sprite} alt={tp.pokemon.name} />

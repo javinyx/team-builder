@@ -18,7 +18,7 @@ export async function GET() {
             orderBy: { createdAt: 'desc' },
         });
 
-        await redis.set(cacheKey, JSON.stringify(teams), 'EX', 60);
+        await redis.set(cacheKey, JSON.stringify(teams), 'EX', 1);
 
         return NextResponse.json(teams);
     } catch (error) {
