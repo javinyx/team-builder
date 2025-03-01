@@ -74,7 +74,7 @@ export default function TeamEditForm(props: TeamEditFormProps) {
 			<div>
 				{team?.pokemons.map((tp: any) => (
 					<div key={tp.pokemon.id}>
-						<img src={tp.pokemon.sprite} alt={tp.pokemon.name} />
+						<img className="sprite" src={tp.pokemon.sprite} alt={tp.pokemon.name} />
 						<p>{tp.pokemon.name}</p>
 						<p>Base experience: {tp.pokemon.baseExp}</p>
 						<p>Types: {tp.pokemon.types.join(", ")}</p>
