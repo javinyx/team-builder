@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
 	title: "Team Listing",
-	description: "Have a look and edit your Pokémon teams!",
+	description: "Have a look at your Pokémon teams!",
 };
 
 export default function TeamListPage() {

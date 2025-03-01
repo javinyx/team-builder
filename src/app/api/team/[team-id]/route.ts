@@ -1,21 +1,24 @@
-import type { Pokemon } from "@/types";
 import { PrismaClient } from "@prisma/client";
-import { type NextRequest, NextResponse } from "next/server";
+
+import { TeamEditProps } from "@/app/team/[team-id]/edit/page";
+import type { Pokemon } from "@/types";
 
 const prisma = new PrismaClient();
 
 export async function GET(
-	req: NextRequest,
-	{ params }: { params: { teamId: string } },
+	req: Request,
+	{ params }: TeamEditProps
 ) {
+	const teamId = (await params)["team-id"];
+
 	try {
 		const team = await prisma.team.findUnique({
-			where: { id: params.teamId },
+			where: { id: teamId },
 			include: { pokemons: { include: { pokemon: true } } },
 		});
-		return NextResponse.json(team);
+		return Response.json(team);
 	} catch (error) {
-		return NextResponse.json(
+		return Response.json(
 			{ error: "Failed to fetch team" },
 			{ status: 500 },
 		);
@@ -23,14 +26,16 @@ export async function GET(
 }
 
 export async function PUT(
-	req: NextRequest,
-	{ params }: { params: { teamId: string } },
+	req: Request,
+	{ params }: TeamEditProps,
 ) {
+	const teamId = (await params)["team-id"];
+
 	try {
 		const { name, pokemons } = await req.json();
 
 		const updatedTeam = await prisma.team.update({
-			where: { id: params.teamId },
+			where: { id: teamId },
 			data: {
 				name,
 				pokemons: {
@@ -54,9 +59,9 @@ export async function PUT(
 			include: { pokemons: { include: { pokemon: true } } },
 		});
 
-		return NextResponse.json(updatedTeam);
+		return Response.json(updatedTeam);
 	} catch (error) {
-		return NextResponse.json(
+		return Response.json(
 			{ error: "Failed to update team" },
 			{ status: 500 },
 		);

@@ -1,10 +1,10 @@
-import type { Pokemon } from "@/types";
 import { PrismaClient } from "@prisma/client";
-import { type NextRequest, NextResponse } from "next/server";
+
+import type { Pokemon } from "@/types";
 
 const prisma = new PrismaClient();
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
 	try {
 		const { name, pokemons } = await req.json();
 
@@ -32,10 +32,9 @@ export async function POST(req: NextRequest) {
 			include: { pokemons: { include: { pokemon: true } } },
 		});
 
-		return NextResponse.json(createdTeam, { status: 201 });
+		return Response.json(createdTeam, { status: 201 });
 	} catch (error) {
-		console.error("Error creating team:", error);
-		return NextResponse.json(
+		return Response.json(
 			{ error: "Failed to create team", details: error },
 			{ status: 500 },
 		);
