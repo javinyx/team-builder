@@ -1,6 +1,6 @@
+import type { Pokemon } from "@/types";
 import { PrismaClient } from "@prisma/client";
 import { type NextRequest, NextResponse } from "next/server";
-import type { PokemonData } from "../../pokemon/random/route";
 
 const prisma = new PrismaClient();
 
@@ -35,7 +35,7 @@ export async function PUT(
 				name,
 				pokemons: {
 					deleteMany: {},
-					create: pokemons.map((pokemon: PokemonData) => ({
+					create: pokemons.map((pokemon: Pokemon) => ({
 						pokemon: {
 							connectOrCreate: {
 								where: { name: pokemon.name },

@@ -8,6 +8,10 @@
 		--background: #0a0a0a;
 		--foreground: #ededed;
 	}
+
+	html {
+		color-scheme: dark;
+	}
 }
 
 html,
@@ -35,12 +39,6 @@ a {
 	text-decoration: none;
 }
 
-img {
+.sprite {
 	image-rendering: pixelated;
-}
-
-@media (prefers-color-scheme: dark) {
-	html {
-		color-scheme: dark;
-	}
 }

@@ -1,23 +1,15 @@
-import { pokemonsAvailable } from "@/utils/constants";
-
-export interface PokemonData {
-	id: number;
-	name: string;
-	baseExp: number;
-	sprite: string;
-	types: string[];
-	abilities: string[];
-}
+import type { Pokemon } from "@/types";
+import { AVAILABLE_POKEMON } from "@/utils/constants";
 
 export async function GET() {
-	const randomId = Math.floor(Math.random() * pokemonsAvailable) + 1;
+	const randomId = Math.floor(Math.random() * AVAILABLE_POKEMON) + 1;
 	try {
 		const response = await fetch(
 			`${process.env.POKEMON_API_URL}/pokemon/${randomId}`,
 		);
 		const data = await response.json();
 
-		const pokemon: PokemonData = {
+		const pokemon: Pokemon = {
 			id: data.id,
 			name: `${data.name[0].toUpperCase()}${data.name.slice(1)}`,
 			baseExp: data.base_experience,
