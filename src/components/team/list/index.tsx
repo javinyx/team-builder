@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export function TeamList() {
-	const [teams, setTeams] = useState([]);
+	const [teams, setTeams] = useState<any[]>([]);
 
 	useEffect(() => {
 		fetch("/api/team/list")
@@ -14,7 +14,7 @@ export function TeamList() {
 
 	return (
 		<div>
-			{teams.map((team) => (
+			{teams?.map((team) => (
 				<div key={team.id}>
 					<div>
 						<h2>{team.name}</h2>

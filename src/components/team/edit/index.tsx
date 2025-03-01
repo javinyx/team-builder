@@ -1,16 +1,17 @@
 "use client";
 
-import { MAX_TEAM_SIZE } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
+import { MAX_TEAM_SIZE } from "@/utils/constants";
 
 type TeamEditFormProps = {
 	teamId: string;
 };
 
 export default function TeamEditForm(props: TeamEditFormProps) {
-	const [team, setTeam] = useState(null);
-	const [teamName, setTeamName] = useState("");
+	const [team, setTeam] = useState<any>(null);
+	const [teamName, setTeamName] = useState<string>("");
 	const [disabledAddButton, setDisabledAddButton] = useState(false);
 	const [disabledSaveButton, setDisabledSaveButton] = useState(false);
 
@@ -26,7 +27,7 @@ export default function TeamEditForm(props: TeamEditFormProps) {
 	}, [props.teamId]);
 
 	const addPokemon = async () => {
-		if (team?.pokemons.length >= MAX_TEAM_SIZE) {
+		if (team && team?.pokemons.length >= MAX_TEAM_SIZE) {
 			return alert(
 				`You can't have more than ${MAX_TEAM_SIZE} Pokémon in your team!`,
 			);
@@ -34,9 +35,11 @@ export default function TeamEditForm(props: TeamEditFormProps) {
 
 		setDisabledAddButton(true);
 		setDisabledSaveButton(true);
+
 		const response = await fetch("/api/pokemon/random");
 		const data = await response.json();
 		setTeam({ ...team, pokemons: [...team.pokemons, { pokemon: data }] });
+
 		setDisabledAddButton(false);
 		setDisabledSaveButton(false);
 	};

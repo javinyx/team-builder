@@ -70,6 +70,10 @@ export function TeamCreate() {
 							className="sprite"
 							src={pokemon.localSprite}
 							alt={pokemon.name}
+							onError={({ currentTarget }) => {
+								currentTarget.onerror = null;
+								currentTarget.src = pokemon.sprite;
+							}}
 						/>
 						<p>{pokemon.name}</p>
 						<p>Base experience: {pokemon.baseExp}</p>
