@@ -1,7 +1,7 @@
+import { REDIS_CACHE_EXPIRATION } from "@/utils/constants";
 import { PrismaClient } from "@prisma/client";
 import Redis from "ioredis";
 
-import { REDIS_CACHE_EXPIRATION } from "@/utils/constants";
 
 const prisma = new PrismaClient();
 const redis = new Redis();

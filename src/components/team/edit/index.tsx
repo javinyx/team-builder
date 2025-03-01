@@ -41,6 +41,14 @@ export default function TeamEditForm(props: TeamEditFormProps) {
 	};
 
 	const saveChanges = async () => {
+		if (teamName.length === 0) {
+			return alert("Please provide a name for your team!");
+		}
+
+		if (team.pokemons.length === 0) {
+			return alert("Please add at least a Pokémon to your team!");
+		}
+
 		await fetch(`/api/team/${props.teamId}`, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
@@ -68,6 +76,9 @@ export default function TeamEditForm(props: TeamEditFormProps) {
 					<div key={tp.pokemon.id}>
 						<img src={tp.pokemon.sprite} alt={tp.pokemon.name} />
 						<p>{tp.pokemon.name}</p>
+						<p>Base experience: {tp.pokemon.baseExp}</p>
+						<p>Types: {tp.pokemon.types.join(", ")}</p>
+						<p>Abilities: {tp.pokemon.abilities.join(", ")}</p>
 						<button type="button" onClick={() => removePokemon(tp.pokemon.id)}>Remove</button>
 					</div>
 				))}

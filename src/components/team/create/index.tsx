@@ -2,11 +2,14 @@
 
 import type { Pokemon } from "@/types";
 import { MAX_TEAM_SIZE } from "@/utils/constants";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function TeamCreate() {
 	const [teamName, setTeamName] = useState("");
 	const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+
+	const router = useRouter();
 
 	const addPokemon = async () => {
 		if (pokemons.length >= MAX_TEAM_SIZE) {
@@ -19,11 +22,21 @@ export function TeamCreate() {
 	};
 
 	const createTeam = async () => {
+		if (teamName.length === 0) {
+			return alert("Please provide a name for your team!");
+		}
+
+		if (pokemons.length === 0) {
+			return alert("Please add at least a Pokémon to your team!");
+		}
+
 		await fetch("/api/team/create", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ name: teamName, pokemons }),
 		});
+
+		router.push("/team/list");
 	};
 
 	return (
