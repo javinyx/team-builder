@@ -10,15 +10,17 @@ export async function POST(req: Request) {
 
 		const createdTeam = await prisma.team.create({
 			data: {
-				name,
+				name: name.trim(),
 				pokemons: {
 					create: pokemons.map((pokemon: Pokemon) => ({
 						pokemon: {
 							connectOrCreate: {
-								where: { name: pokemon.name },
+								where: { pokedexId: pokemon.pokedexId },
 								create: {
 									id: crypto.randomUUID(),
+									pokedexId: pokemon.pokedexId,
 									name: pokemon.name,
+									localSprite: pokemon.localSprite,
 									sprite: pokemon.sprite,
 									baseExp: pokemon.baseExp,
 									abilities: pokemon.abilities,
@@ -34,6 +36,7 @@ export async function POST(req: Request) {
 
 		return Response.json(createdTeam, { status: 201 });
 	} catch (error) {
+		console.log(error);
 		return Response.json(
 			{ error: "Failed to create team", details: error },
 			{ status: 500 },

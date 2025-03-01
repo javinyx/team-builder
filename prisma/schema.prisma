@@ -15,13 +15,15 @@ model Team {
 }
 
 model Pokemon {
-  id        String  @id @default(uuid())
-  name      String  @unique
-  sprite    String
-  baseExp   Int
-  abilities String[]
-  types     String[]
-  teams     TeamPokemon[]
+  id          String  @id @default(uuid())
+  pokedexId   Int     @unique
+  name        String  @unique
+  localSprite String
+  sprite      String
+  baseExp     Int
+  abilities   String[]
+  types       String[]
+  teams       TeamPokemon[]
 }
 
 model TeamPokemon {

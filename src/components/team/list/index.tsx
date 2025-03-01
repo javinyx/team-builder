@@ -27,8 +27,12 @@ export function TeamList() {
 							<img
 								className="sprite"
 								key={tp.pokemon.id}
-								src={tp.pokemon.sprite}
+								src={tp.pokemon.localSprite}
 								alt={tp.pokemon.name}
+								onError={({ currentTarget }) => {
+									currentTarget.onerror = null;
+									currentTarget.src = tp.pokemon.sprite;
+								}}
 							/>
 						))}
 					</div>

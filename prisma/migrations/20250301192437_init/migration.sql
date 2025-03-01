@@ -10,7 +10,9 @@ CREATE TABLE "Team" (
 -- CreateTable
 CREATE TABLE "Pokemon" (
     "id" TEXT NOT NULL,
+    "pokedexId" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
+    "localSprite" TEXT NOT NULL,
     "sprite" TEXT NOT NULL,
     "baseExp" INTEGER NOT NULL,
     "abilities" TEXT[],
@@ -26,6 +28,9 @@ CREATE TABLE "TeamPokemon" (
 
     CONSTRAINT "TeamPokemon_pkey" PRIMARY KEY ("teamId","pokemonId")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Pokemon_pokedexId_key" ON "Pokemon"("pokedexId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Pokemon_name_key" ON "Pokemon"("name");

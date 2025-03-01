@@ -7,8 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"migrate:dev": "prisma migrate dev --name init",
-		"lint": "biome lint --write src/",
-		"format": "biome format --write src/"
+		"lint": "biome lint --write .",
+		"format": "biome format --write ."
 	},
 	"dependencies": {
 		"@prisma/client": "^6.4.1",

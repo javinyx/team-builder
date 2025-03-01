@@ -8,17 +8,27 @@ import { useState } from "react";
 export function TeamCreate() {
 	const [teamName, setTeamName] = useState("");
 	const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+	const [disabledAddButton, setDisabledAddButton] = useState(false);
+	const [disabledSaveButton, setDisabledSaveButton] = useState(false);
 
 	const router = useRouter();
 
 	const addPokemon = async () => {
 		if (pokemons.length >= MAX_TEAM_SIZE) {
-			return alert(`You can't have more than ${MAX_TEAM_SIZE} Pokémon in your team!`);
+			return alert(
+				`You can't have more than ${MAX_TEAM_SIZE} Pokémon in your team!`,
+			);
 		}
+
+		setDisabledAddButton(true);
+		setDisabledSaveButton(true);
 
 		const response = await fetch("/api/pokemon/random");
 		const data = await response.json();
 		setPokemons([...pokemons, data]);
+
+		setDisabledAddButton(false);
+		setDisabledSaveButton(false);
 	};
 
 	const createTeam = async () => {
@@ -47,16 +57,20 @@ export function TeamCreate() {
 				value={teamName}
 				onChange={(e) => setTeamName(e.target.value)}
 			/>
-			<button type="button" onClick={addPokemon}>
+			<button type="button" onClick={addPokemon} disabled={disabledAddButton}>
 				Gotta Catch 'Em All
 			</button>
-			<button type="button" onClick={createTeam}>
+			<button type="button" onClick={createTeam} disabled={disabledSaveButton}>
 				Save Team
 			</button>
 			<ul>
 				{pokemons.map((pokemon) => (
 					<li key={pokemon.id}>
-						<img className="sprite" src={pokemon.sprite} alt={pokemon.name} />
+						<img
+							className="sprite"
+							src={pokemon.localSprite}
+							alt={pokemon.name}
+						/>
 						<p>{pokemon.name}</p>
 						<p>Base experience: {pokemon.baseExp}</p>
 						<p>Types: {pokemon.types.join(", ")}</p>

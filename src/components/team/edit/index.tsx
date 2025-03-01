@@ -11,6 +11,8 @@ type TeamEditFormProps = {
 export default function TeamEditForm(props: TeamEditFormProps) {
 	const [team, setTeam] = useState(null);
 	const [teamName, setTeamName] = useState("");
+	const [disabledAddButton, setDisabledAddButton] = useState(false);
+	const [disabledSaveButton, setDisabledSaveButton] = useState(false);
 
 	const router = useRouter();
 
@@ -25,18 +27,24 @@ export default function TeamEditForm(props: TeamEditFormProps) {
 
 	const addPokemon = async () => {
 		if (team?.pokemons.length >= MAX_TEAM_SIZE) {
-			return alert(`You can't have more than ${MAX_TEAM_SIZE} Pokémon in your team!`);
+			return alert(
+				`You can't have more than ${MAX_TEAM_SIZE} Pokémon in your team!`,
+			);
 		}
 
-		const response = await fetch('/api/pokemon/random');
+		setDisabledAddButton(true);
+		setDisabledSaveButton(true);
+		const response = await fetch("/api/pokemon/random");
 		const data = await response.json();
 		setTeam({ ...team, pokemons: [...team.pokemons, { pokemon: data }] });
+		setDisabledAddButton(false);
+		setDisabledSaveButton(false);
 	};
 
 	const removePokemon = (pokemonId: string) => {
 		setTeam({
-		...team,
-		pokemons: team.pokemons.filter((tp: any) => tp.pokemon.id !== pokemonId),
+			...team,
+			pokemons: team.pokemons.filter((tp: any) => tp.pokemon.id !== pokemonId),
 		});
 	};
 
@@ -67,19 +75,31 @@ export default function TeamEditForm(props: TeamEditFormProps) {
 				value={teamName}
 				onChange={(e) => setTeamName(e.target.value)}
 			/>
-			<button type="button" onClick={addPokemon}>Add Random Pokémon</button>
-			<button type="button" onClick={saveChanges}>
+			<button type="button" onClick={addPokemon} disabled={disabledAddButton}>
+				Add Random Pokémon
+			</button>
+			<button type="button" onClick={saveChanges} disabled={disabledSaveButton}>
 				Save Team
 			</button>
 			<div>
 				{team?.pokemons.map((tp: any) => (
 					<div key={tp.pokemon.id}>
-						<img className="sprite" src={tp.pokemon.sprite} alt={tp.pokemon.name} />
+						<img
+							className="sprite"
+							src={tp.pokemon.localSprite}
+							alt={tp.pokemon.name}
+							onError={({ currentTarget }) => {
+								currentTarget.onerror = null;
+								currentTarget.src = tp.pokemon.sprite;
+							}}
+						/>
 						<p>{tp.pokemon.name}</p>
 						<p>Base experience: {tp.pokemon.baseExp}</p>
 						<p>Types: {tp.pokemon.types.join(", ")}</p>
 						<p>Abilities: {tp.pokemon.abilities.join(", ")}</p>
-						<button type="button" onClick={() => removePokemon(tp.pokemon.id)}>Remove</button>
+						<button type="button" onClick={() => removePokemon(tp.pokemon.id)}>
+							Remove
+						</button>
 					</div>
 				))}
 			</div>
