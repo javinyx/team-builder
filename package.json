@@ -21,9 +21,10 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"@types/node": "^20",
-		"@types/react": "^19",
-		"@types/react-dom": "^19",
-		"typescript": "^5"
+		"@types/node": "^22.13.0",
+		"@types/react": "^19.0.0",
+		"@types/react-dom": "^19.0.0",
+		"pokeapi-types": "^0.0.2",
+		"typescript": "^5.7.3"
 	}
 }
