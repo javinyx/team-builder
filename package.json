@@ -1,27 +1,29 @@
 {
-  "name": "team-builder",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "migrate:dev": "prisma migrate dev --name init",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@prisma/client": "^6.4.1",
-    "ioredis": "^5.5.0",
-    "next": "15.1.7",
-    "pg": "^8.13.3",
-    "prisma": "^6.4.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "typescript": "^5"
-  }
+	"name": "team-builder",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbopack",
+		"build": "next build",
+		"start": "next start",
+		"migrate:dev": "prisma migrate dev --name init",
+		"lint": "biome lint --write src/",
+		"format": "biome format --write src/"
+	},
+	"dependencies": {
+		"@prisma/client": "^6.4.1",
+		"ioredis": "^5.5.0",
+		"next": "15.1.7",
+		"pg": "^8.13.3",
+		"prisma": "^6.4.1",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"typescript": "^5"
+	}
 }
