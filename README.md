@@ -6,7 +6,7 @@
 
 - Docker
 - Docker Compose
-- Node.js (only for development without Docker)
+- Node.js (only for [developing without Docker](#running-in-development-mode-the-app-outside-docker))
 
 ## Architecture
 
@@ -33,6 +33,8 @@ A mock TerraForm configuration is also present [here](/docs/main.tf).
 
 ## Environment variables
 
+> ⚠️ Note: To propagate Environment variables to the production build you must map the variables inside the `app` service inside `docker-compose.yaml`.
+
 1. The Pokémon games have a limit of 6 Pokémon per team, this can be configured through the `MAX_TEAM_SIZE` environment variable.
 
     ```sh
@@ -47,18 +49,32 @@ A mock TerraForm configuration is also present [here](/docs/main.tf).
     POKEMON_API_URL=https://dev.pokeapi.co/api/v2
     ```
 
-3. You can target the running Redis instance through the `REDIS_URL` environment variable.
+3. You can target the Redis instance through the `REDIS_URL` environment variable. Composed of different pieces, have a look at [`.env.example`](/.env.example).
 
     ```sh
     # Default: redis://localhost:6379
     REDIS_URL=redis://localhost:6666
     ```
 
-4. You can configure the default `REDIS_CACHE_EXPIRATION`, in seconds, used in the Team Listing page to improve performance.
+4. You can configure the `REDIS_CACHE_EXPIRATION`, in seconds, used in the Team Listing page to improve performance.
 
     ```sh
     # Default: 1
     REDIS_CACHE_EXPIRATION=60
+    ```
+
+5. You can target the PostgreSQL instance through the `DATABASE_URL` environment variable. This has no default value, therefore must be set to work. Composed of different pieces, have a look at [`.env.example`](/.env.example).
+
+    ```sh
+    # Default: N/A
+    DATABASE_URL=postgresql://user:password@localhost:5432/pokemon_db?schema=public
+    ```
+
+6. Docker only: you can target the app port through the `APP_PORT` environment variable. This has no default value, therefore must be set to work.
+
+    ```sh
+    # Default: N/A
+    APP_PORT=3000
     ```
 
 ## Considerations
