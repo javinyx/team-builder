@@ -1,18 +1,18 @@
 "use client";
 
-import Image from "next/image";
+import type { Pokemon } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { PokemonCard } from "@/components/ui/pokemon/card";
 import type { TeamPokemonWithPokemon, TeamWithPokemon } from "@/types";
 import { MAX_TEAM_SIZE } from "@/utils/constants";
-import type { Pokemon } from "@prisma/client";
 
-type TeamEditFormProps = {
+type TeamEditProps = {
 	teamId: string;
 };
 
-export default function TeamEditForm(props: TeamEditFormProps) {
+export function TeamEdit(props: TeamEditProps) {
 	const [team, setTeam] = useState<TeamWithPokemon | null>(null);
 	const [teamName, setTeamName] = useState("");
 
@@ -60,7 +60,7 @@ export default function TeamEditForm(props: TeamEditFormProps) {
 		});
 	};
 
-	const saveChanges = async () => {
+	const saveTeam = async () => {
 		if (!team) return alert("Team not found!");
 
 		if (teamName.length === 0) {
@@ -92,23 +92,13 @@ export default function TeamEditForm(props: TeamEditFormProps) {
 			<button type="button" onClick={addPokemon}>
 				Add Random Pokémon
 			</button>
-			<button type="button" onClick={saveChanges}>
+			<button type="button" onClick={saveTeam}>
 				Save Team
 			</button>
 			<div>
 				{team?.pokemons.map((tp: TeamPokemonWithPokemon) => (
 					<div key={tp.pokemon.id}>
-						<Image
-							width={96}
-							height={96}
-							className="sprite"
-							src={tp.pokemon.sprite}
-							alt={tp.pokemon.name}
-						/>
-						<p>{tp.pokemon.name}</p>
-						<p>Base experience: {tp.pokemon.baseExperience}</p>
-						<p>Types: {tp.pokemon.types.join(", ")}</p>
-						<p>Abilities: {tp.pokemon.abilities.join(", ")}</p>
+						<PokemonCard pokemon={tp.pokemon} />
 						<button type="button" onClick={() => removePokemon(tp.pokemon.id)}>
 							Remove
 						</button>

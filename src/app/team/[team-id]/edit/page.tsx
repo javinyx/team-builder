@@ -1,5 +1,7 @@
-import TeamEditForm from "@/components/team/edit";
 import type { Metadata } from "next";
+
+import { TeamEdit } from "@/components/team/edit";
+import { PageHeader } from "@/components/ui/page/header";
 
 export const metadata: Metadata = {
 	title: "Team Edit",
@@ -19,9 +21,11 @@ export default async function TeamEditPage({ params }: TeamEditProps) {
 
 	return (
 		<div>
-			<h1>{metadata.title as string}</h1>
-			<h3>{metadata.description as string}</h3>
-			<TeamEditForm teamId={teamId} />
+			<PageHeader
+				title={metadata.title as string}
+				description={metadata.description as string}
+			/>
+			<TeamEdit teamId={teamId} />
 		</div>
 	);
 }

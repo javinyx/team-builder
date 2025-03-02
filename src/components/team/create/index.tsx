@@ -1,10 +1,11 @@
 "use client";
 
-import { MAX_TEAM_SIZE } from "@/utils/constants";
 import type { Pokemon } from "@prisma/client";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import { PokemonCard } from "@/components/ui/pokemon/card";
+import { MAX_TEAM_SIZE } from "@/utils/constants";
 
 export function TeamCreate() {
 	const [teamName, setTeamName] = useState("");
@@ -24,7 +25,7 @@ export function TeamCreate() {
 		setPokemons([...pokemons, data]);
 	};
 
-	const createTeam = async () => {
+	const saveTeam = async () => {
 		if (teamName.length === 0) {
 			return alert("Please provide a name for your team!");
 		}
@@ -33,7 +34,7 @@ export function TeamCreate() {
 			return alert("Please add at least a Pokémon to your team!");
 		}
 
-		await fetch("/api/team/create", {
+		await fetch("/api/team", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ name: teamName, pokemons }),
@@ -53,26 +54,14 @@ export function TeamCreate() {
 			<button type="button" onClick={addPokemon}>
 				Gotta Catch 'Em All
 			</button>
-			<button type="button" onClick={createTeam}>
+			<button type="button" onClick={saveTeam}>
 				Save Team
 			</button>
-			<ul>
+			<div>
 				{pokemons.map((pokemon) => (
-					<li key={pokemon.id}>
-						<Image
-							width={96}
-							height={96}
-							className="sprite"
-							src={pokemon.sprite}
-							alt={pokemon.name}
-						/>
-						<p>{pokemon.name}</p>
-						<p>Base experience: {pokemon.baseExperience}</p>
-						<p>Types: {pokemon.types.join(", ")}</p>
-						<p>Abilities: {pokemon.abilities.join(", ")}</p>
-					</li>
+					<PokemonCard key={pokemon.id} pokemon={pokemon} />
 				))}
-			</ul>
+			</div>
 		</div>
 	);
 }

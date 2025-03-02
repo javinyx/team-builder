@@ -18,7 +18,7 @@ export async function GET(
 		return Response.json(team);
 	} catch (error) {
 		return Response.json(
-			{ error: "Failed to fetch team" },
+			{ error: "Failed to fetch team", details: error },
 			{ status: 500 },
 		);
 	}
@@ -62,7 +62,7 @@ export async function PUT(
 		return Response.json(updatedTeam);
 	} catch (error) {
 		return Response.json(
-			{ error: "Failed to update team" },
+			{ error: "Failed to update team", details: error },
 			{ status: 500 },
 		);
 	}
