@@ -18,8 +18,9 @@ A mock TerraForm configuration is also present [here](/docs/main.tf).
 
 > ℹ️ The `docker compose` command may be `docker-compose` in your system depending on how you have it installed, if the first doesn't work, try the latter.
 
-1. Copy the `.env.example` file to a new `.env` file.
+1. Copy the `.env.example` file to a new `.env` file
 2. Run `docker compose up -d`
+3. Your app will be running on `localhost:3000`
 
 ## Running in development mode the app outside Docker
 
@@ -28,18 +29,19 @@ A mock TerraForm configuration is also present [here](/docs/main.tf).
 3. Run `npm install`
 4. Copy `.env.example` to `.env` and change both `DATABASE_HOST` and `REDIS_HOST` to `localhost`
 5. Run `npx prisma generate`
-6. Run `npx prisma migrate`
+6. Run `npx prisma migrate dev`
 7. Run `npm run dev`
+8. Your app will be running on `localhost:3000`
 
 ## Environment variables
 
 > ⚠️ Note: To propagate Environment variables to the production build you must map the variables inside the `app` service inside `docker-compose.yaml`.
 
-1. The Pokémon games have a limit of 6 Pokémon per team, this can be configured through the `MAX_TEAM_SIZE` environment variable.
+1. The Pokémon games have a limit of 6 Pokémon per team, this can be configured through the `NEXT_PUBLIC_MAX_TEAM_SIZE` environment variable.
 
     ```sh
     # Default: 6
-    MAX_TEAM_SIZE=9
+    NEXT_PUBLIC_MAX_TEAM_SIZE=9
     ```
 
 2. If you want to target a different PokéAPI environment you can do it through the `POKEMON_API_URL` environment variable.
