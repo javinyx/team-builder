@@ -1,10 +1,12 @@
 "use client";
 
+import type { TeamPokemonWithPokemon, TeamWithPokemon } from "@/types";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export function TeamList() {
-	const [teams, setTeams] = useState([]);
+	const [teams, setTeams] = useState<any>([]);
 
 	useEffect(() => {
 		fetch("/api/team/list")
@@ -14,7 +16,7 @@ export function TeamList() {
 
 	return (
 		<div>
-			{teams.map((team) => (
+			{teams.map((team: TeamWithPokemon) => (
 				<div key={team.id}>
 					<div>
 						<h2>{team.name}</h2>
@@ -23,8 +25,10 @@ export function TeamList() {
 						</Link>
 					</div>
 					<div>
-						{team.pokemons.map((tp: any) => (
-							<img
+						{team.pokemons.map((tp: TeamPokemonWithPokemon) => (
+							<Image
+								width={96}
+								height={96}
 								className="sprite"
 								key={tp.pokemon.id}
 								src={tp.pokemon.sprite}

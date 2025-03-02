@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-import type { Pokemon } from "@/types";
+import { type Pokemon, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -10,17 +8,18 @@ export async function POST(req: Request) {
 
 		const createdTeam = await prisma.team.create({
 			data: {
-				name,
+				name: name.trim(),
 				pokemons: {
 					create: pokemons.map((pokemon: Pokemon) => ({
 						pokemon: {
 							connectOrCreate: {
-								where: { name: pokemon.name },
+								where: { pokedexNumber: pokemon.pokedexNumber },
 								create: {
 									id: crypto.randomUUID(),
 									name: pokemon.name,
+									pokedexNumber: pokemon.pokedexNumber,
 									sprite: pokemon.sprite,
-									baseExp: pokemon.baseExp,
+									baseExperience: pokemon.baseExperience,
 									abilities: pokemon.abilities,
 									types: pokemon.types,
 								},

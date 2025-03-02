@@ -1,7 +1,8 @@
 "use client";
 
-import type { Pokemon } from "@/types";
 import { MAX_TEAM_SIZE } from "@/utils/constants";
+import type { Pokemon } from "@prisma/client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -13,7 +14,9 @@ export function TeamCreate() {
 
 	const addPokemon = async () => {
 		if (pokemons.length >= MAX_TEAM_SIZE) {
-			return alert(`You can't have more than ${MAX_TEAM_SIZE} Pokémon in your team!`);
+			return alert(
+				`You can't have more than ${MAX_TEAM_SIZE} Pokémon in your team!`,
+			);
 		}
 
 		const response = await fetch("/api/pokemon/random");
@@ -56,9 +59,15 @@ export function TeamCreate() {
 			<ul>
 				{pokemons.map((pokemon) => (
 					<li key={pokemon.id}>
-						<img className="sprite" src={pokemon.sprite} alt={pokemon.name} />
+						<Image
+							width={96}
+							height={96}
+							className="sprite"
+							src={pokemon.sprite}
+							alt={pokemon.name}
+						/>
 						<p>{pokemon.name}</p>
-						<p>Base experience: {pokemon.baseExp}</p>
+						<p>Base experience: {pokemon.baseExperience}</p>
 						<p>Types: {pokemon.types.join(", ")}</p>
 						<p>Abilities: {pokemon.abilities.join(", ")}</p>
 					</li>

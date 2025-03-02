@@ -1,7 +1,8 @@
 import type { PokeAPI } from "pokeapi-types";
 
-import type { Pokemon } from "@/types";
+import { capitalize, removeDashes } from "@/utils";
 import { AVAILABLE_POKEMON } from "@/utils/constants";
+import type { Pokemon } from "@prisma/client";
 
 export async function GET() {
 	const randomId = Math.floor(Math.random() * AVAILABLE_POKEMON) + 1;
@@ -12,16 +13,17 @@ export async function GET() {
 		const data = await response.json() as PokeAPI.Pokemon;
 
 		const pokemon: Pokemon = {
-			id: data.id,
-			name: `${data.name[0].toUpperCase()}${data.name.slice(1)}`,
-			baseExp: data.base_experience,
+			id: crypto.randomUUID(),
+			name: capitalize(data.name),
+			pokedexNumber: data.id,
+			baseExperience: data.base_experience,
 			sprite: data.sprites.front_default,
-			types: data.types.map((type) => type.type.name),
-			abilities: data.abilities.map((ability) => ability.ability.name),
+			types: data.types.map((type) => capitalize(type.type.name)),
+			abilities: data.abilities.map((ability) => removeDashes(capitalize(ability.ability.name))),
 		};
 
 		return Response.json(pokemon);
-	} catch {
+	} catch (error) {
 		return Response.json(
 			{ error: `Failed to fetch Pokémon with id ${randomId}` },
 			{ status: 500 },

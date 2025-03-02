@@ -11,8 +11,9 @@ CREATE TABLE "Team" (
 CREATE TABLE "Pokemon" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "pokedexNumber" INTEGER NOT NULL,
     "sprite" TEXT NOT NULL,
-    "baseExp" INTEGER NOT NULL,
+    "baseExperience" INTEGER NOT NULL,
     "abilities" TEXT[],
     "types" TEXT[],
 
@@ -29,6 +30,9 @@ CREATE TABLE "TeamPokemon" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Pokemon_name_key" ON "Pokemon"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Pokemon_pokedexNumber_key" ON "Pokemon"("pokedexNumber");
 
 -- AddForeignKey
 ALTER TABLE "TeamPokemon" ADD CONSTRAINT "TeamPokemon_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

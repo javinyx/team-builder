@@ -1,12 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 
-import { TeamEditProps } from "@/app/team/[team-id]/edit/page";
+import type { TeamEditProps } from "@/app/team/[team-id]/edit/page";
 import type { Pokemon } from "@/types";
 
 const prisma = new PrismaClient();
 
 export async function GET(
-	req: Request,
+	_req: Request,
 	{ params }: TeamEditProps
 ) {
 	const teamId = (await params)["team-id"];
@@ -37,17 +37,18 @@ export async function PUT(
 		const updatedTeam = await prisma.team.update({
 			where: { id: teamId },
 			data: {
-				name,
+				name: name.trim(),
 				pokemons: {
 					deleteMany: {},
 					create: pokemons.map((pokemon: Pokemon) => ({
 						pokemon: {
 							connectOrCreate: {
-								where: { name: pokemon.name },
+								where: { pokedexNumber: pokemon.pokedexNumber },
 								create: {
 									name: pokemon.name,
+									pokedexNumber: pokemon.pokedexNumber,
 									sprite: pokemon.sprite,
-									baseExp: pokemon.baseExp,
+									baseExperience: pokemon.baseExperience,
 									abilities: pokemon.abilities,
 									types: pokemon.types,
 								},
