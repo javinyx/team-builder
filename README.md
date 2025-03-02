@@ -6,6 +6,7 @@
 
 - Docker
 - Docker Compose
+- Node.js (only for development without Docker)
 
 ## Architecture
 
