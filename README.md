@@ -7,6 +7,12 @@
 - Docker
 - Docker Compose
 
+## Architecture
+
+The theoretical proposed architecture for AWS is explained in this [document](/docs/ARCHITECTURE.pdf).
+
+A mock TerraForm configuration is also present [here](/docs/main.tf).
+
 ## Running the production build locally
 
 > ℹ️ The `docker compose` command may be `docker-compose` in your system depending on how you have it installed, if the first doesn't work, try the latter.
