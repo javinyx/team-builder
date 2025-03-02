@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { type Pokemon, PrismaClient } from "@prisma/client";
 
 import type { TeamEditProps } from "@/app/team/[team-id]/edit/page";
-import type { Pokemon } from "@/types";
 
 const prisma = new PrismaClient();
 

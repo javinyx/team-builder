@@ -1,14 +1,14 @@
 import type { PokeAPI } from "pokeapi-types";
 
 import { capitalize, removeDashes } from "@/utils";
-import { AVAILABLE_POKEMON } from "@/utils/constants";
+import { AVAILABLE_POKEMON, POKEMON_API_URL } from "@/utils/constants";
 import type { Pokemon } from "@prisma/client";
 
 export async function GET() {
 	const randomId = Math.floor(Math.random() * AVAILABLE_POKEMON) + 1;
 	try {
 		const response = await fetch(
-			`${process.env.POKEMON_API_URL}/pokemon/${randomId}`,
+			`${POKEMON_API_URL}/pokemon/${randomId}`,
 		);
 		const data = await response.json() as PokeAPI.Pokemon;
 

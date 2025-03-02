@@ -1,23 +1,48 @@
 services:
   postgres:
     image: postgres:17.4
-    container_name: pokemon_postgres
     restart: always
     environment:
+      POSTGRES_DB: pokemon_db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: pokemon_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:7.4.2
-    container_name: pokemon_redis
+    restart: always
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
     restart: always
+    environment:
+      - NODE_ENV=production
+    env_file: .env
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
 volumes:
   postgres_data:
+  redis_data:

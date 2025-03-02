@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import Redis from "ioredis";
 
-import { REDIS_CACHE_EXPIRATION } from "@/utils/constants";
+import { REDIS_CACHE_EXPIRATION, REDIS_URL } from "@/utils/constants";
 
 const prisma = new PrismaClient();
-const redis = new Redis();
+const redis = new Redis(REDIS_URL);
 
 export async function GET() {
 	try {
