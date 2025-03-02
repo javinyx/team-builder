@@ -6,9 +6,7 @@
 		"useIgnoreFile": false
 	},
 	"files": {
-		"include": ["src/**/*.ts|tsx"],
-		"ignoreUnknown": true,
-		"ignore": []
+		"ignore": [".next/**/*", "node_modules/**/*", "dist/**/*"]
 	},
 	"formatter": {
 		"enabled": true,
