@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --turbopack",
+		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
 		"lint": "biome lint --write .",
@@ -11,12 +11,15 @@
 	},
 	"dependencies": {
 		"@prisma/client": "^6.4.1",
+		"@tailwindcss/postcss": "^4.0.9",
 		"ioredis": "^5.5.0",
 		"next": "15.1.7",
 		"pg": "^8.13.3",
+		"postcss": "^8.5.3",
 		"prisma": "^6.4.1",
 		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react-dom": "^19.0.0",
+		"tailwindcss": "^4.0.9"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
