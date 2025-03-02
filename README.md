@@ -14,14 +14,15 @@
 1. Copy the `.env.example` file to a new `.env` file.
 2. Run `docker compose up -d`
 
-## Running in development mode
+## Running in development mode the app outside Docker
 
 1. Run `docker compose up -d postgres`
 2. Run `docker compose up -d redis`
 3. Run `npm install`
-4. Run `npx prisma migrate`
+4. Copy `.env.example` to `.env` and change both `DATABASE_HOST` and `REDIS_HOST` to `localhost`
 5. Run `npx prisma generate`
-6. Run `npm run dev`
+6. Run `npx prisma migrate`
+7. Run `npm run dev`
 
 ## Environment variables
 
