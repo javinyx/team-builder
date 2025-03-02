@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import "../styles/globals.css";
+import "../styles/index.css";
 
 export const metadata: Metadata = {
 	title: "Team Builder",
@@ -12,25 +12,19 @@ export default function RootLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
-		<html lang="en">
+		<html lang="en" className="overflow-x-hidden max-w-lvw">
 			<head>
 				<link rel="icon" href="/favicon.png" />
 			</head>
-			<body>
-				<nav>
-					<ul>
-						<li>
-							<Link href="/">Home</Link>
-						</li>
-						<li>
-							<Link href="/team/create">Create Team</Link>
-						</li>
-						<li>
-							<Link href="/team/list">Team Listing</Link>
-						</li>
-					</ul>
-				</nav>
-				{children}
+			<body className="overflow-x-hidden max-w-lvw bg-neutral-950 text-neutral-200 text-center text-lg">
+				<header>
+					<nav className="flex flex-row w-screen justify-center gap-12 p-6 text-xl bg-red-900">
+						<Link href="/">Home</Link>
+						<Link href="/team/create">Create Team</Link>
+						<Link href="/team/list">Team Listing</Link>
+					</nav>
+				</header>
+				<main className="p-6">{children}</main>
 			</body>
 		</html>
 	);

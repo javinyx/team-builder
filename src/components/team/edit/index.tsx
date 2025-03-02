@@ -4,8 +4,11 @@ import type { Pokemon } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { PokemonCard } from "@/components/ui/pokemon/card";
 import type { TeamPokemonWithPokemon, TeamWithPokemon } from "@/types";
+import { debounce } from "@/utils";
 import { MAX_TEAM_SIZE } from "@/utils/constants";
 
 type TeamEditProps = {
@@ -84,24 +87,21 @@ export function TeamEdit(props: TeamEditProps) {
 
 	return (
 		<div>
-			<input
-				type="text"
-				value={teamName}
-				onChange={(e) => setTeamName(e.target.value)}
-			/>
-			<button type="button" onClick={addPokemon}>
-				Add Random Pokémon
-			</button>
-			<button type="button" onClick={saveTeam}>
-				Save Team
-			</button>
-			<div>
+			<div className="flex flex-row gap-2 pb-6">
+				<Button onClick={debounce(() => addPokemon())}>
+					Gotta Catch 'Em All
+				</Button>
+				<Input value={teamName} onChange={(e) => setTeamName(e.target.value)} />
+				<Button onClick={saveTeam}>Save Team</Button>
+			</div>
+			<div className="flex flex-col gap-6">
 				{team?.pokemons.map((tp: TeamPokemonWithPokemon) => (
 					<div key={tp.pokemon.id}>
-						<PokemonCard pokemon={tp.pokemon} />
-						<button type="button" onClick={() => removePokemon(tp.pokemon.id)}>
-							Remove
-						</button>
+						<PokemonCard pokemon={tp.pokemon}>
+							<Button onClick={() => removePokemon(tp.pokemon.id)}>
+								Remove
+							</Button>
+						</PokemonCard>
 					</div>
 				))}
 			</div>

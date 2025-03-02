@@ -4,7 +4,10 @@ import type { Pokemon } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { PokemonCard } from "@/components/ui/pokemon/card";
+import { debounce } from "@/utils";
 import { MAX_TEAM_SIZE } from "@/utils/constants";
 
 export function TeamCreate() {
@@ -45,19 +48,18 @@ export function TeamCreate() {
 
 	return (
 		<div>
-			<input
-				type="text"
-				placeholder="Team Name"
-				value={teamName}
-				onChange={(e) => setTeamName(e.target.value)}
-			/>
-			<button type="button" onClick={addPokemon}>
-				Gotta Catch 'Em All
-			</button>
-			<button type="button" onClick={saveTeam}>
-				Save Team
-			</button>
-			<div>
+			<div className="flex flex-row justify-center gap-2 pb-6">
+				<Button onClick={debounce(() => addPokemon())}>
+					Gotta Catch 'Em All
+				</Button>
+				<Input
+					value={teamName}
+					onChange={(e) => setTeamName(e.target.value)}
+					placeholder="Team Name"
+				/>
+				<Button onClick={saveTeam}>Save Team</Button>
+			</div>
+			<div className="flex flex-col gap-6">
 				{pokemons.map((pokemon) => (
 					<PokemonCard key={pokemon.id} pokemon={pokemon} />
 				))}

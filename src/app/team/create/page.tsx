@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { TeamCreate } from "@/components/team/create";
-import { PageHeader } from "@/components/ui/page/header";
+import { PageHeader } from "@/components/ui/header";
 
 export const metadata: Metadata = {
 	title: "Create Team",

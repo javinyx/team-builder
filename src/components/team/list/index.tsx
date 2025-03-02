@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import { PokemonSprite } from "@/components/ui/pokemon/sprite";
 import type { TeamPokemonWithPokemon, TeamWithPokemon } from "@/types";
 
 export function TeamList() {
-	const [teams, setTeams] = useState<any>([]);
+	const [teams, setTeams] = useState<TeamWithPokemon[]>([]);
 
 	useEffect(() => {
 		fetch("/api/team")
@@ -16,13 +17,13 @@ export function TeamList() {
 	}, []);
 
 	return (
-		<div>
+		<div className="flex flex-col gap-6">
 			{teams.map((team: TeamWithPokemon) => (
-				<div key={team.id}>
-					<div>
-						<h2>{team.name}</h2>
+				<div key={team.id} className="border border-neutral-900 rounded-3xl">
+					<div className="flex flex-row p-4 justify-between">
+						<h1 className="text-2xl">{team.name}</h1>
 						<Link href={`/team/${team.id}/edit`}>
-							<button type="button">Edit</button>
+							<Button>Edit</Button>
 						</Link>
 					</div>
 					<div>

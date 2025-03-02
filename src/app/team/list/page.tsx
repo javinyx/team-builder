@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 import { TeamList } from "@/components/team/list";
-import { PageHeader } from "@/components/ui/page/header";
+import { PageHeader } from "@/components/ui/header";
 
 export const metadata: Metadata = {
 	title: "Team Listing",
-	description: "Have a look at your Pokémon teams!",
+	description: "Take a look at your Pokémon teams!",
 };
 
 export default function TeamListPage() {

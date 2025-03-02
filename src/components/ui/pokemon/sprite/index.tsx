@@ -8,9 +8,9 @@ type PokemonSpriteProps = {
 export function PokemonSprite(props: PokemonSpriteProps) {
 	return (
 		<Image
-			width={96}
-			height={96}
-			className="sprite"
+			width={120}
+			height={120}
+			className="rendering-pixelated inline-block"
 			quality={100}
 			src={props.url}
 			alt={props.name}
