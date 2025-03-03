@@ -1,6 +1,15 @@
 # Team Builder
 
-> ⚠️ Note: The PostgreSQL database environment variables are intended for local development, make sure you change them and save them correctly in a production environment.
+## Table of Contents
+
+- [Team Builder](#team-builder)
+  - [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Architecture](#architecture)
+  - [Running the production build locally in Docker](#running-the-production-build-locally-in-docker)
+  - [Running the app in development mode using local Node.js](#running-the-app-in-development-mode-using-local-nodejs)
+  - [Configuration](#configuration)
+  - [Considerations](#considerations)
 
 ## Requirements
 
@@ -14,7 +23,7 @@ The theoretical proposed architecture for AWS is explained in this [document](/d
 
 A mock TerraForm configuration is also present [here](/docs/main.tf).
 
-## Running the production build locally
+## Running the production build locally in Docker
 
 > ℹ️ The `docker compose` command may be `docker-compose` in your system depending on how you have it installed, if the first doesn't work, try the latter.
 
@@ -22,7 +31,7 @@ A mock TerraForm configuration is also present [here](/docs/main.tf).
 2. Run `docker compose up -d`
 3. Your app will be running on `localhost:3000`
 
-## Running the in development mode outside Docker
+## Running the app in development mode using local Node.js
 
 1. Run `docker compose up -d postgres`
 2. Run `docker compose up -d redis`
@@ -33,9 +42,11 @@ A mock TerraForm configuration is also present [here](/docs/main.tf).
 7. Run `npm run dev`
 8. Your app will be running on `localhost:3000`
 
-## Environment variables
+## Configuration
 
-> ⚠️ Note: To propagate Environment variables to the production build you must map the variables inside the `app` service inside `docker-compose.yaml`.
+> ⚠️ Note 1: To propagate Environment variables to the production build you must map the variables inside the `app` service inside `docker-compose.yaml`.
+
+> ⚠️ Note 2: The PostgreSQL database environment variables are intended for local development, make sure you change them and save them correctly in a production environment.
 
 1. The Pokémon games have a limit of 6 Pokémon per team, this can be configured through the `NEXT_PUBLIC_MAX_TEAM_SIZE` environment variable.
 
