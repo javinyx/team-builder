@@ -22,7 +22,7 @@ A mock TerraForm configuration is also present [here](/docs/main.tf).
 2. Run `docker compose up -d`
 3. Your app will be running on `localhost:3000`
 
-## Running in development mode the app outside Docker
+## Running the in development mode outside Docker
 
 1. Run `docker compose up -d postgres`
 2. Run `docker compose up -d redis`
